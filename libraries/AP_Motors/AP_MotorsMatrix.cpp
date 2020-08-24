@@ -314,16 +314,24 @@ void AP_MotorsMatrix::output_armed_stabilizing()
     // add scaled roll, pitch, constrained yaw and throttle for each motor
     for (i = 0; i < AP_MOTORS_MAX_NUM_MOTORS; i++) {
         if (motor_enabled[i]) {
-            
-            if(i>1)
+            if (motor_frame_type == MOTOR_FRAME_TYPE_MAO_VTOL)
             {
-                _thrust_rpyt_out[i] = throttle_thrust_best_rpy + thr_adj + (rpy_scale * _thrust_rpyt_out[i]);
+                if(i>1)
+                {
+                    _thrust_rpyt_out[i] = throttle_thrust_best_rpy + thr_adj + (rpy_scale * _thrust_rpyt_out[i]);
+                }
+                else
+                {
+                    
+                    _thrust_rpyt_out[i] = throttle_thrust;
+                }
+
             }
             else
             {
-                
-                _thrust_rpyt_out[i] = throttle_thrust;
+                _thrust_rpyt_out[i] = throttle_thrust_best_rpy + thr_adj + (rpy_scale * _thrust_rpyt_out[i]);
             }
+            
             
         }
     }
