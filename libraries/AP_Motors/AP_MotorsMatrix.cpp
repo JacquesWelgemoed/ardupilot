@@ -330,9 +330,7 @@ void AP_MotorsMatrix::output_armed_stabilizing()
             else
             {
                 _thrust_rpyt_out[i] = throttle_thrust_best_rpy + thr_adj + (rpy_scale * _thrust_rpyt_out[i]);
-            }
-            
-            
+            }           
         }
     }
 
